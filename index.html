@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+	<div>
+    <div class="borderBox">
+      <h3>Add Transaction</h3>
+      <form>
+        <label>Type</label><br>
+        <input type="button" value="Income">
+        <input type="button" value="Expense"><br>
+        <div style="display: flex; gap: 20px">
+          <div style="padding: 10px 0">
+            <label>Description</label><br>
+            <input id="descInput" type="text">
+          </div>
+          <div style="padding: 10px 0">
+            <label>Amount</label><br>
+            <input id="amtInput" type="text">
+          </div>
+        </div>
+        <div style="display: flex; gap: 20px">
+          <div>
+            <label>Category</label><br>
+            <input id="catInput" type="text">
+          </div>
+          <div>
+            <label>Date</label><br>
+            <input id="dateInput" type="date">
+          </div>
+        </div>
+        <div style="padding: 20px 0">
+          <input type="button" onclick="addRow()" value="+ Add Transaction">
+        </div>
+      </form>
+    </div>
+    <div>
+      <table class="borderBox" id="transactionTable" style="text-align: left; border-spacing: 15px 0;">
+        <tr>
+          <th>Date</th>
+          <th>Description</th>
+          <th>Category</th>
+          <th>Amount</th>
+        </tr>
+        <tr>
+          <td>Jul 16, 2026</td>
+          <td>Moana Tickets</td>
+          <td>Entertainment</td>
+          <td>-$10</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</body>
+</html>
