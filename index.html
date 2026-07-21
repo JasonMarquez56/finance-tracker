@@ -9,11 +9,16 @@
 </head>
 <body>
 	<div>
+    <h1>Transactions</h1>
     <div class="borderBox">
       <form id="txnForm">
+        <p>Add Transaction</p>
         <label>Type</label><br>
-        <input type="button" value="Income">
-        <input type="button" value="Expense"><br>
+        <div style="padding: 10px 0">
+          <input id="incomeBtn" class="typeBtn" type="button" value="Income">
+          <input id="expenseBtn" class="typeBtn" type="button" value="Expense"><br>
+          <span id="typeError" style="display: none; color: red; font-size: 0.85em;">Please select Income or Expense.</span>
+        </div>
         <div style="display: flex; gap: 20px">
           <div style="padding: 10px 0">
             <label>Description</label><br>

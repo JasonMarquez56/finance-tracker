@@ -1,8 +1,17 @@
+:root {
+  --primary-color: #c8c8c9;
+  background-color: #222222;
+}
+
+body {
+  color: var(--primary-color);
+}
+
 .borderBox {
   width: auto;
   height: auto;
-  border: 2px solid black;
   border-radius: 10px;
+  background-color: #2a2a2b;
   padding: 10px;
 }
 
@@ -12,7 +21,7 @@
 }
 
 #transactionTable th, #transactionTable td {
-  border-bottom: 1px solid black;
+  border-bottom: 2px solid #333335;
   text-align: left;
   padding: 8px;
 }
@@ -32,4 +41,9 @@
 
 .amountWrap input {
   padding-left: 18px;
+}
+
+.typeBtn.selected {
+  background-color: black;
+  color: white;
 }

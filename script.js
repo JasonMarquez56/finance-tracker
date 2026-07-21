@@ -1,7 +1,27 @@
 document.getElementById("txnForm").addEventListener("submit", addRow);
 
+const incomeBtn = document.getElementById("incomeBtn");
+const expenseBtn = document.getElementById("expenseBtn");
+const typeError = document.getElementById("typeError");
+
+function toggleTypeBtn(selected, other) {
+  const isSelected = selected.classList.contains("selected");
+  selected.classList.toggle("selected", !isSelected);
+  other.classList.remove("selected");
+  typeError.style.display = "none";
+}
+
+incomeBtn.addEventListener("click", () => toggleTypeBtn(incomeBtn, expenseBtn));
+expenseBtn.addEventListener("click", () => toggleTypeBtn(expenseBtn, incomeBtn));
+
 function addRow(event){
   event.preventDefault()
+
+  if (!incomeBtn.classList.contains("selected") && !expenseBtn.classList.contains("selected")) {
+    typeError.style.display = "inline";
+    return;
+  }
+
   const description = document.getElementById("descInput").value;
   const amount = document.getElementById("amtInput").value;
   const category = document.getElementById("catInput").value;
@@ -18,8 +38,11 @@ function addRow(event){
   cell2.textContent = description;
   cell3.textContent = category;
   cell4.textContent = `$${parseFloat(amount).toFixed(2)}`;
+  cell4.style.color = incomeBtn.classList.contains('selected') ? 'green':'red';
 
   // Clear inputs
+  incomeBtn.classList.remove("selected");
+  expenseBtn.classList.remove("selected");
   document.getElementById("descInput").value = '';
   document.getElementById("amtInput").value = '';
   document.getElementById("catInput").value = '';
