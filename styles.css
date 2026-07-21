@@ -3,7 +3,7 @@
   height: auto;
   border: 2px solid black;
   border-radius: 10px;
-  padding: 0 10px;
+  padding: 10px;
 }
 
 #transactionTable {
@@ -15,4 +15,21 @@
   border-bottom: 1px solid black;
   text-align: left;
   padding: 8px;
+}
+
+.amountWrap {
+  position: relative;
+  display: inline-block;
+}
+
+.amountPrefix {
+  position: absolute;
+  left: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
+.amountWrap input {
+  padding-left: 18px;
 }

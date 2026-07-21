@@ -17,7 +17,7 @@ function addRow(event){
   cell1.textContent = date;
   cell2.textContent = description;
   cell3.textContent = category;
-  cell4.textContent = amount;
+  cell4.textContent = `$${parseFloat(amount).toFixed(2)}`;
 
   // Clear inputs
   document.getElementById("descInput").value = '';
