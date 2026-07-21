@@ -3,7 +3,7 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Document</title>
+	<title>Finance Tracker</title>
   <link rel="stylesheet" href="styles.css">
   <script src="script.js" defer></script>
 </head>
@@ -11,37 +11,37 @@
 	<div>
     <div class="borderBox">
       <h3>Add Transaction</h3>
-      <form>
+      <form id="txnForm">
         <label>Type</label><br>
         <input type="button" value="Income">
         <input type="button" value="Expense"><br>
         <div style="display: flex; gap: 20px">
           <div style="padding: 10px 0">
             <label>Description</label><br>
-            <input id="descInput" type="text">
+            <input id="descInput" type="text" required>
           </div>
           <div style="padding: 10px 0">
             <label>Amount</label><br>
-            <input id="amtInput" type="text">
+            <input id="amtInput" type="text" placeholder="$0.00" required>
           </div>
         </div>
         <div style="display: flex; gap: 20px">
           <div>
             <label>Category</label><br>
-            <input id="catInput" type="text">
+            <input id="catInput" type="text" placeholder="e.g. Groceries" required>
           </div>
           <div>
             <label>Date</label><br>
-            <input id="dateInput" type="date">
+            <input id="dateInput" type="date" required>
           </div>
         </div>
         <div style="padding: 20px 0">
-          <input type="button" onclick="addRow()" value="+ Add Transaction">
+          <input type="submit" value="+ Add Transaction">
         </div>
       </form>
     </div>
     <div>
-      <table class="borderBox" id="transactionTable" style="text-align: left; border-spacing: 15px 0;">
+      <table id="transactionTable" style="text-align: left; border-spacing: 15px 0;">
         <tr>
           <th>Date</th>
           <th>Description</th>

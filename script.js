@@ -1,4 +1,7 @@
-function addRow(){
+document.getElementById("txnForm").addEventListener("submit", addRow);
+
+function addRow(event){
+  event.preventDefault()
   const description = document.getElementById("descInput").value;
   const amount = document.getElementById("amtInput").value;
   const category = document.getElementById("catInput").value;
@@ -15,4 +18,10 @@ function addRow(){
   cell2.textContent = description;
   cell3.textContent = category;
   cell4.textContent = amount;
+
+  // Clear inputs
+  document.getElementById("descInput").value = '';
+  document.getElementById("amtInput").value = '';
+  document.getElementById("catInput").value = '';
+  document.getElementById("dateInput").value = '';
 }
