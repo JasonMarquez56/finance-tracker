@@ -3,6 +3,7 @@ document.getElementById("txnForm").addEventListener("submit", addRow);
 const incomeBtn = document.getElementById("incomeBtn");
 const expenseBtn = document.getElementById("expenseBtn");
 const typeError = document.getElementById("typeError");
+const table = document.getElementById("transactionTable");
 
 function toggleTypeBtn(selected, other) {
   const isSelected = selected.classList.contains("selected");
@@ -14,8 +15,35 @@ function toggleTypeBtn(selected, other) {
 incomeBtn.addEventListener("click", () => toggleTypeBtn(incomeBtn, expenseBtn));
 expenseBtn.addEventListener("click", () => toggleTypeBtn(expenseBtn, incomeBtn));
 
-function addRow(event){
-  event.preventDefault()
+function renderRow(txn) {
+  const row = table.insertRow();
+
+  const cell1 = row.insertCell(0);
+  const cell2 = row.insertCell(1);
+  const cell3 = row.insertCell(2);
+  const cell4 = row.insertCell(3);
+  cell1.textContent = txn.date;
+  cell2.textContent = txn.payee;
+  cell3.textContent = txn.category;
+  cell4.textContent = `$${txn.amount.toFixed(2)}`;
+  cell4.style.color = txn.type === "income" ? "#3ecf8e" : "#f0546b";
+}
+
+function renderTable(transactions) {
+  while (table.rows.length > 1) {
+    table.deleteRow(1);
+  }
+  transactions.forEach(renderRow);
+}
+
+async function loadTransactions() {
+  const response = await fetch("/api/transactions");
+  const transactions = await response.json();
+  renderTable(transactions);
+}
+
+async function addRow(event) {
+  event.preventDefault();
 
   if (!incomeBtn.classList.contains("selected") && !expenseBtn.classList.contains("selected")) {
     typeError.style.display = "inline";
@@ -26,25 +54,29 @@ function addRow(event){
   const amount = document.getElementById("amtInput").value;
   const category = document.getElementById("catInput").value;
   const date = document.getElementById("dateInput").value;
+  const type = incomeBtn.classList.contains("selected") ? "income" : "expense";
 
-  const table = document.getElementById("transactionTable");
-  const row = table.insertRow();
+  const response = await fetch("/api/transactions", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ date, payee, category, amount, type }),
+  });
 
-  const cell1 = row.insertCell(0);
-  const cell2 = row.insertCell(1);
-  const cell3 = row.insertCell(2);
-  const cell4 = row.insertCell(3);
-  cell1.textContent = date;
-  cell2.textContent = payee;
-  cell3.textContent = category;
-  cell4.textContent = `$${parseFloat(amount).toFixed(2)}`;
-  cell4.style.color = incomeBtn.classList.contains('selected') ? '#3ecf8e':'#f0546b';
+  if (!response.ok) {
+    const { error } = await response.json();
+    alert(`Could not save transaction: ${error}`);
+    return;
+  }
+
+  await loadTransactions();
 
   // Clear inputs
   incomeBtn.classList.remove("selected");
   expenseBtn.classList.remove("selected");
-  document.getElementById("payeeInput").value = '';
-  document.getElementById("amtInput").value = '';
-  document.getElementById("catInput").value = '';
-  document.getElementById("dateInput").value = '';
+  document.getElementById("payeeInput").value = "";
+  document.getElementById("amtInput").value = "";
+  document.getElementById("catInput").value = "";
+  document.getElementById("dateInput").value = "";
 }
+
+loadTransactions();
