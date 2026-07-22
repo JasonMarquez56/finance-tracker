@@ -12,7 +12,7 @@ body {
   height: auto;
   border-radius: 10px;
   background-color: #2a2a2b;
-  padding: 10px;
+  padding: 15px;
 }
 
 #transactionTable {
@@ -24,6 +24,24 @@ body {
   border-bottom: 2px solid #333335;
   text-align: left;
   padding: 8px;
+}
+
+.formGroup {
+  margin-top: 16px;
+}
+
+.formGroup label {
+  display: block;
+  margin-bottom: 6px;
+}
+
+.formRow {
+  display: flex;
+  gap: 10px;
+}
+
+.formRow > div {
+  flex: 1;
 }
 
 .amountWrap {
@@ -39,11 +57,75 @@ body {
   pointer-events: none;
 }
 
+.typeBtn {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.txtEntry {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.typeSelector {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+#incomeBtn.typeBtn.selected {
+  background-color: #3ecf8e;
+  font-weight: 500;
+  color: white;
+}
+
+#expenseBtn.typeBtn.selected {
+  background-color: #f0546b;
+  font-weight: 500;
+  color: white;
+}
+
+input[type="button"], input[type="submit"] {
+  background-color: #222222;
+  color: var(--primary-color);
+  border: 1px solid #3a3a3c;
+  border-radius: 6px;
+  padding: 8px 14px;
+  cursor: pointer;
+  font-size: 0.95em;
+  transition: background-color 0.15s ease;
+}
+
+input[type="text"], input[type="number"], input[type="date"] {
+  background-color: #222222;
+  color: var(--primary-color);
+  border: 1px solid #3a3a3c;
+  border-radius: 6px;
+  padding: 8px 10px;
+  font-size: 0.95em;
+  transition: border-color 0.15s ease;
+}
+
 .amountWrap input {
   padding-left: 18px;
 }
 
-.typeBtn.selected {
-  background-color: black;
-  color: white;
+select {
+  appearance: none;
+  background-color: #222222;
+  color: var(--primary-color);
+  border: 1px solid #3a3a3c;
+  border-radius: 6px;
+  padding: 8px 32px 8px 10px;
+  font-size: 0.95em;
+  cursor: pointer;
+  outline: none;
+
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='%23c8c8c9'><path d='M5 7l5 5 5-5z'/></svg>");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  background-size: 12px;
+}
+
+select:focus {
+  border-color: var(--primary-color);
 }

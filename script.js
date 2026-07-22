@@ -22,7 +22,7 @@ function addRow(event){
     return;
   }
 
-  const description = document.getElementById("descInput").value;
+  const payee = document.getElementById("payeeInput").value;
   const amount = document.getElementById("amtInput").value;
   const category = document.getElementById("catInput").value;
   const date = document.getElementById("dateInput").value;
@@ -35,15 +35,15 @@ function addRow(event){
   const cell3 = row.insertCell(2);
   const cell4 = row.insertCell(3);
   cell1.textContent = date;
-  cell2.textContent = description;
+  cell2.textContent = payee;
   cell3.textContent = category;
   cell4.textContent = `$${parseFloat(amount).toFixed(2)}`;
-  cell4.style.color = incomeBtn.classList.contains('selected') ? 'green':'red';
+  cell4.style.color = incomeBtn.classList.contains('selected') ? '#3ecf8e':'#f0546b';
 
   // Clear inputs
   incomeBtn.classList.remove("selected");
   expenseBtn.classList.remove("selected");
-  document.getElementById("descInput").value = '';
+  document.getElementById("payeeInput").value = '';
   document.getElementById("amtInput").value = '';
   document.getElementById("catInput").value = '';
   document.getElementById("dateInput").value = '';
