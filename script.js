@@ -25,8 +25,9 @@ function renderRow(txn) {
   const cell4 = row.insertCell(3);
   const cell5 = row.insertCell(4);
   const editBtn = document.createElement("button");
-  editBtn.textContent = "Edit";
+  editBtn.textContent = "...";
   editBtn.type = "button";
+  editBtn.classList.add('editBtn');
 
   editBtn.addEventListener("click", () => {
     document.getElementById("payeeInput").value = txn.payee;
@@ -80,8 +81,7 @@ async function addRow(event) {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ date, payee, category, amount, type }),
     });
-    editingId = null
-    document.getElementById("formName").outerHTML = "<b>Add Transaction<b>";
+    editingId = null;
   } else {
     response = await fetch("/api/transactions", {
       method: "POST",

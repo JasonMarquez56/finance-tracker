@@ -84,7 +84,7 @@ body {
   color: white;
 }
 
-input[type="button"], input[type="submit"] {
+input[type="button"], input[type="submit"], .editBtn {
   background-color: #222222;
   color: var(--primary-color);
   border: 1px solid #3a3a3c;
