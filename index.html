@@ -12,7 +12,7 @@
     <h1>Transactions</h1>
     <div class="borderBox">
       <form id="txnForm">
-        <b>Add Transaction</b>
+        <b id="formName" >Add Transaction</b>
         <div class="formGroup">
           <label>Type</label>
           <div class="formRow">
@@ -39,6 +39,7 @@
             <label for="category">Category</label>
             <select id="catInput" name="category" class="txtEntry" value="" required>
               <option value="" disabled selected>Select an option</option>
+              <option value="Paycheck">Paycheck</option>
               <option value="Groceries">Groceries</option>
               <option value="Transportation">Transportation</option>
               <option value="Entertainment">Entertainment</option>
@@ -50,7 +51,7 @@
           </div>
         </div>
         <div class="formGroup">
-          <input type="submit" value="+ Add Transaction">
+          <input id="formBtn" type="submit" value="+ Add Transaction">
         </div>
       </form>
     </div>
@@ -61,6 +62,7 @@
           <th>Payee</th>
           <th>Category</th>
           <th>Amount</th>
+          <th></th>
         </tr>
       </table>
     </div>

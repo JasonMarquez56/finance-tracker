@@ -8,12 +8,12 @@ db.pragma("journal_mode = WAL");
 
 db.exec(`
   CREATE TABLE IF NOT EXISTS transactions (
-    id INTEGER PRIMARY KEY AUTOINCREMENT, -- unique row id, SQLite assigns automatically
-    date TEXT NOT NULL,                   -- stored as 'YYYY-MM-DD' text (SQLite has no native date type)
-    payee TEXT NOT NULL,                  -- who you paid / who paid you
-    category TEXT NOT NULL,               -- e.g. Groceries, Entertainment
-    amount REAL NOT NULL,                 -- REAL = floating point number
-    type TEXT NOT NULL CHECK (type IN ('income', 'expense')) -- CHECK enforces only these two values at the DB level
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    date TEXT NOT NULL,
+    payee TEXT NOT NULL,
+    category TEXT NOT NULL,
+    amount REAL NOT NULL,
+    type TEXT NOT NULL CHECK (type IN ('income', 'expense'))
   )
 `);
 
@@ -58,7 +58,33 @@ app.delete("/api/transactions/:id", (req, res) => {
   res.status(204).end();
 });
 
-const PORT = process.env.PORT || 3000;
+app.put("/api/transactions/:id", (req, res) => {
+  const { date, payee, category, amount, type } = req.body;
+
+  if (!date || !payee || !category || !type) {
+    return res.status(400).json({ error: "Missing required fields" });
+  }
+  if (type !== "income" && type !== "expense") {
+    return res.status(400).json({ error: "type must be 'income' or 'expense'" });
+  }
+  const parsedAmount = Number(amount);
+  if (!Number.isFinite(parsedAmount) || parsedAmount < 0) {
+    return res.status(400).json({ error: "amount must be a non-negative number" });
+  }
+
+  const result = db
+    .prepare(
+      "UPDATE transactions SET date = ?, payee = ?, category = ?, amount = ?, type = ? WHERE id = ?"
+    )
+    .run(date, payee, category, parsedAmount, type, req.params.id);
+  if (result.changes === 0) {
+    return res.status(404).json({ error: "Transaction not found" });
+  }
+  const row = db.prepare("SELECT * FROM transactions WHERE id = ?").get(req.params.id);
+  res.json(row);
+});
+
+const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {
   console.log(`Finance tracker server running at http://localhost:${PORT}`);
 });

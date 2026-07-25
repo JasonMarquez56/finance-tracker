@@ -4,6 +4,7 @@ const incomeBtn = document.getElementById("incomeBtn");
 const expenseBtn = document.getElementById("expenseBtn");
 const typeError = document.getElementById("typeError");
 const table = document.getElementById("transactionTable");
+let editingId = null;
 
 function toggleTypeBtn(selected, other) {
   const isSelected = selected.classList.contains("selected");
@@ -22,11 +23,27 @@ function renderRow(txn) {
   const cell2 = row.insertCell(1);
   const cell3 = row.insertCell(2);
   const cell4 = row.insertCell(3);
+  const cell5 = row.insertCell(4);
+  const editBtn = document.createElement("button");
+  editBtn.textContent = "Edit";
+  editBtn.type = "button";
+
+  editBtn.addEventListener("click", () => {
+    document.getElementById("payeeInput").value = txn.payee;
+    document.getElementById("amtInput").value = txn.amount;
+    document.getElementById("catInput").value = txn.category;
+    document.getElementById("dateInput").value = txn.date;
+    incomeBtn.classList.toggle("selected", txn.type == "income")
+    expenseBtn.classList.toggle("selected", txn.type == "expense")
+    editingId = txn.id;
+  })
+
   cell1.textContent = txn.date;
   cell2.textContent = txn.payee;
   cell3.textContent = txn.category;
   cell4.textContent = `$${txn.amount.toFixed(2)}`;
   cell4.style.color = txn.type === "income" ? "#3ecf8e" : "#f0546b";
+  cell5.appendChild(editBtn);
 }
 
 function renderTable(transactions) {
@@ -56,11 +73,22 @@ async function addRow(event) {
   const date = document.getElementById("dateInput").value;
   const type = incomeBtn.classList.contains("selected") ? "income" : "expense";
 
-  const response = await fetch("/api/transactions", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ date, payee, category, amount, type }),
-  });
+  let response;
+  if (editingId != null) {
+    response = await fetch(`/api/transactions/${editingId}`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ date, payee, category, amount, type }),
+    });
+    editingId = null
+    document.getElementById("formName").outerHTML = "<b>Add Transaction<b>";
+  } else {
+    response = await fetch("/api/transactions", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ date, payee, category, amount, type }),
+    });
+  }
 
   if (!response.ok) {
     const { error } = await response.json();
