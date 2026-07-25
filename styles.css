@@ -1,6 +1,7 @@
 :root {
   --primary-color: #c8c8c9;
   background-color: #222222;
+  color-scheme: dark;
 }
 
 body {
@@ -15,6 +16,69 @@ body {
   padding: 15px;
 }
 
+.header-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.header-row h2 {
+  font-weight: 500;
+  font-size: 18px;
+  margin: 0;
+}
+
+.type-error {
+  display: none;
+  color: #f0546b;
+  font-size: 0.85em;
+}
+
+.field-grid {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.field-input {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 9px 11px;
+  border: 1px solid black;
+  border-radius: 6px;
+  margin-top: 4px;
+}
+
+.segmented {
+  display: flex;
+  border: 1px solid black;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.segmented button {
+  padding: 6px 16px;
+  font-size: 13px;
+  font-weight: 600;
+  border: none;
+  border-radius: 0;
+  cursor: pointer;
+}
+
+.selection-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.selection-options {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
 #transactionTable {
   width: 100%;
   border-collapse: collapse;
@@ -26,65 +90,17 @@ body {
   padding: 8px;
 }
 
-.formGroup {
-  margin-top: 16px;
-}
-
-.formGroup label {
-  display: block;
-  margin-bottom: 6px;
-}
-
-.formRow {
-  display: flex;
-  gap: 10px;
-}
-
-.formRow > div {
-  flex: 1;
-}
-
-.amountWrap {
-  position: relative;
-  display: inline-block;
-}
-
-.amountPrefix {
-  position: absolute;
-  left: 8px;
-  top: 50%;
-  transform: translateY(-50%);
-  pointer-events: none;
-}
-
-.typeBtn {
-  width: 100%;
-  box-sizing: border-box;
-}
-
-.txtEntry {
-  width: 100%;
-  box-sizing: border-box;
-}
-
-.typeSelector {
-  width: 100%;
-  box-sizing: border-box;
-}
-
 #incomeBtn.typeBtn.selected {
   background-color: #3ecf8e;
-  font-weight: 500;
   color: white;
 }
 
 #expenseBtn.typeBtn.selected {
   background-color: #f0546b;
-  font-weight: 500;
   color: white;
 }
 
-input[type="button"], input[type="submit"], .editBtn {
+button, .editBtn {
   background-color: #222222;
   color: var(--primary-color);
   border: 1px solid #3a3a3c;
@@ -105,8 +121,16 @@ input[type="text"], input[type="number"], input[type="date"] {
   transition: border-color 0.15s ease;
 }
 
-.amountWrap input {
-  padding-left: 18px;
+.field select {
+  width: 100%;
+  box-sizing: border-box;
+  margin-top: 4px;
+}
+
+input[type="checkbox"] {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
 }
 
 select {

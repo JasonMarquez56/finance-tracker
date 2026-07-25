@@ -9,55 +9,58 @@
 </head>
 <body>
   <div>
-    <h1>Transactions</h1>
-    <div class="borderBox">
-      <form id="txnForm">
-        <b id="formName" >Add Transaction</b>
-        <div class="formGroup">
-          <label>Type</label>
-          <div class="formRow">
-            <input id="incomeBtn" class="typeBtn" type="button" value="Income">
-            <input id="expenseBtn" class="typeBtn" type="button" value="Expense">
-          </div>
-          <span id="typeError" style="display: none; color: red; font-size: 0.85em;">Please select Income or Expense.</span>
+    <form id="txnForm" class="borderBox">
+      <div class="header-row">
+        <h2>Add Transaction</h2>
+        <div class="segmented">
+          <button id="expenseBtn" class="typeBtn" type="button">Expense</button>
+          <button id="incomeBtn" class="typeBtn" type="button">Income</button>
         </div>
-        <div class="formGroup formRow">
-          <div>
-            <label>Payee</label>
-            <input id="payeeInput" class="txtEntry" type="text" placeholder="Joes Coffee Shop" required>
-          </div>
-          <div>
-            <label>Amount</label>
-            <div class="amountWrap" style="width: 100%;">
-              <span class="amountPrefix">$</span>
-              <input id="amtInput" class="txtEntry" type="number" step="0.01" min="0" placeholder="0.00" required>
-            </div>
-          </div>
+      </div>
+      <span id="typeError" class="type-error">Please select Income or Expense.</span>
+      <div class="field-grid">
+        <div class="field">
+          <label>Payee</label>
+          <input id="payeeInput" class="field-input" type="text" placeholder="Joes Coffee Shop" required />
         </div>
-        <div class="formGroup formRow">
-          <div>
-            <label for="category">Category</label>
-            <select id="catInput" name="category" class="txtEntry" value="" required>
-              <option value="" disabled selected>Select an option</option>
-              <option value="Paycheck">Paycheck</option>
-              <option value="Groceries">Groceries</option>
-              <option value="Transportation">Transportation</option>
-              <option value="Entertainment">Entertainment</option>
-            </select>
-          </div>
-          <div>
-            <label>Date</label>
-            <input id="dateInput" class="typeSelector txtEntry" type="date" required>
-          </div>
+        <div class="field">
+          <label>Amount</label>
+          <input id="amtInput" class="field-input" type="number" step="0.01" min="0" placeholder="0.00" required />
         </div>
-        <div class="formGroup">
-          <input id="formBtn" type="submit" value="+ Add Transaction">
+        <div class="field">
+          <label>Category</label>
+          <select id="catInput" required>
+            <option value="" disabled selected>Select an option</option>
+            <option value="Paycheck">Paycheck</option>
+            <option value="Groceries">Groceries</option>
+            <option value="Transportation">Transportation</option>
+            <option value="Entertainment">Entertainment</option>
+          </select>
         </div>
-      </form>
+        <div class="field">
+          <label>Date</label>
+          <input id="dateInput" class="field-input" type="date" required />
+        </div>
+      </div>
+      <div class="button-row">
+        <button type="submit">Add Transaction</button>
+      </div>
+    </form>
+
+    <div class="selection-row">
+      <h3>Transactions</h3>
+      <div class="selection-options">
+        <p id="total-selected" class="total-selected">0 Selected</p>
+        <button>Select All</button>
+        <button onclick="deleteSelected()">Delete</button>
+      </div>
+
     </div>
-    <div>
-      <table id="transactionTable" style="text-align: left; border-spacing: 15px 0;">
+
+    <div class="borderBox">
+      <table id="transactionTable">
         <tr>
+          <th></th>
           <th>Date</th>
           <th>Payee</th>
           <th>Category</th>

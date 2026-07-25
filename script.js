@@ -5,6 +5,7 @@ const expenseBtn = document.getElementById("expenseBtn");
 const typeError = document.getElementById("typeError");
 const table = document.getElementById("transactionTable");
 let editingId = null;
+let selected = [];
 
 function toggleTypeBtn(selected, other) {
   const isSelected = selected.classList.contains("selected");
@@ -19,11 +20,14 @@ expenseBtn.addEventListener("click", () => toggleTypeBtn(expenseBtn, incomeBtn))
 function renderRow(txn) {
   const row = table.insertRow();
 
+  const checkBox = document.createElement("input");
+  checkBox.type = "checkbox";
   const cell1 = row.insertCell(0);
   const cell2 = row.insertCell(1);
   const cell3 = row.insertCell(2);
   const cell4 = row.insertCell(3);
   const cell5 = row.insertCell(4);
+  const cell6 = row.insertCell(5);
   const editBtn = document.createElement("button");
   editBtn.textContent = "...";
   editBtn.type = "button";
@@ -39,12 +43,32 @@ function renderRow(txn) {
     editingId = txn.id;
   })
 
-  cell1.textContent = txn.date;
-  cell2.textContent = txn.payee;
-  cell3.textContent = txn.category;
-  cell4.textContent = `$${txn.amount.toFixed(2)}`;
-  cell4.style.color = txn.type === "income" ? "#3ecf8e" : "#f0546b";
-  cell5.appendChild(editBtn);
+  checkBox.addEventListener("click", () => {
+    if (!selected.includes(txn.id)) {
+      selected.push(txn.id);
+    } else {
+      selected = selected.filter(item => item !== txn.id);
+    }
+    document.getElementById('total-selected').textContent = `${selected.length} Selected`;
+    console.log(selected);
+  });
+
+  cell1.appendChild(checkBox);
+  cell2.textContent = txn.date;
+  cell3.textContent = txn.payee;
+  cell4.textContent = txn.category;
+  cell5.textContent = `$${txn.amount.toFixed(2)}`;
+  cell5.style.color = txn.type === "income" ? "#3ecf8e" : "#f0546b";
+  cell6.appendChild(editBtn);
+}
+
+async function deleteSelected() {
+  for (const id of selected) {
+    await fetch(`/api/transactions/${id}`, { method: "DELETE" });
+  }
+  selected = [];
+  document.getElementById("total-selected").textContent = "0 Selected";
+  await loadTransactions();
 }
 
 function renderTable(transactions) {
