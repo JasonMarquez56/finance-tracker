@@ -17,7 +17,7 @@
           <button id="incomeBtn" class="typeBtn" type="button">Income</button>
         </div>
       </div>
-      <span id="typeError" class="type-error">Please select Income or Expense.</span>
+    
       <div class="field-grid">
         <div class="field">
           <label>Payee</label>
@@ -32,9 +32,16 @@
           <select id="catInput" required>
             <option value="" disabled selected>Select an option</option>
             <option value="Paycheck">Paycheck</option>
+            <option value="Other Income">Other Income</option>
+            <option value="Repayment">Repayment</option>
             <option value="Groceries">Groceries</option>
             <option value="Transportation">Transportation</option>
             <option value="Entertainment">Entertainment</option>
+            <option value="Drinks and Restaurants">Drinks and Restaurants</option>
+            <option value="Clothing">Clothing</option>
+            <option value="Subscription">Subscription</option>
+            <option value="Personal">Personal</option>
+            <option value="Gifts">Gifts</option>
           </select>
         </div>
         <div class="field">
@@ -42,6 +49,7 @@
           <input id="dateInput" class="field-input" type="date" required />
         </div>
       </div>
+      <span id="typeError" class="type-error">Please select Income or Expense.</span>
       <div class="button-row">
         <button type="submit">Add Transaction</button>
       </div>

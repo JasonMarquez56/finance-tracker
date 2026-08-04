@@ -28,10 +28,23 @@ function renderRow(txn) {
   const cell4 = row.insertCell(3);
   const cell5 = row.insertCell(4);
   const cell6 = row.insertCell(5);
+
+  // Buttons
   const editBtn = document.createElement("button");
-  editBtn.textContent = "...";
+  const editIcon = document.createElement("img");
+  editIcon.src = "assets/icons/penicl.svg";
+  editIcon.alt = "Edit";
+  editBtn.appendChild(editIcon);
   editBtn.type = "button";
   editBtn.classList.add('editBtn');
+
+  const deleteBtn = document.createElement("button");
+  const deleteIcon = document.createElement("img");
+  deleteIcon.src = "assets/icons/trash.svg";
+  deleteIcon.alt = "Delete";
+  deleteBtn.appendChild(deleteIcon);
+  deleteBtn.type = "button";
+  deleteBtn.classList.add('deleteBtn');
 
   editBtn.addEventListener("click", () => {
     document.getElementById("payeeInput").value = txn.payee;
@@ -42,6 +55,11 @@ function renderRow(txn) {
     expenseBtn.classList.toggle("selected", txn.type == "expense")
     editingId = txn.id;
   })
+
+  deleteBtn.addEventListener("click", () => {
+    fetch(`/api/transactions/${txn.id}`, { method: "DELETE" });
+    loadTransactions();
+  });
 
   checkBox.addEventListener("click", () => {
     if (!selected.includes(txn.id)) {
@@ -59,7 +77,11 @@ function renderRow(txn) {
   cell4.textContent = txn.category;
   cell5.textContent = `$${txn.amount.toFixed(2)}`;
   cell5.style.color = txn.type === "income" ? "#3ecf8e" : "#f0546b";
-  cell6.appendChild(editBtn);
+  const actionsDiv = document.createElement("div");
+  actionsDiv.classList.add("actions");
+  actionsDiv.appendChild(editBtn);
+  actionsDiv.appendChild(deleteBtn);
+  cell6.appendChild(actionsDiv);
 }
 
 async function deleteSelected() {

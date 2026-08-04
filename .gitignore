@@ -1,7 +1,4 @@
 node_modules/
-
-# SQLite database files — this is your local data, not source code.
-# WAL/SHM are temporary journal files that go with WAL mode (see server.js).
 finance.db
 finance.db-journal
 finance.db-wal
